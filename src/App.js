@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
 import Superagent from 'superagent';
-import logo from './hipertextual-icon-mobile-landscape.svg';
+import Header from './Header';
+import Content from './Content';
 import './App.css';
+
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
-      titles: []
+      titles: [],
+      activities : [
+        {
+          timestamp: new Date().getTime(),
+          text: "Ate lunch",
+          user: {
+            id: 1, name: 'Nate',
+            avatar: "http://www.croop.cl/UI/twitter/images/doug.jpg"
+          },
+          comments: [{ from: 'Ari', text: 'Me too!' }]
+        },
+        {
+          timestamp: new Date().getTime(),
+          text: "Woke up early for a beautiful run",
+          user: {
+            id: 2, name: 'Ari',
+            avatar: "http://www.croop.cl/UI/twitter/images/doug.jpg"
+          },
+          comments: [{ from: 'Nate', text: 'I am so jealous' }]
+        },
+      ]
     };
     this.handleOnclick = this.handleOnclick.bind(this);
   }
@@ -26,9 +48,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
+        <Header title="Timeline" />
+        <Content activities={this.state.activities} />
         <p className="App-intro">
           <button onClick={this.handleOnclick}>traer posts</button>
         </p>
@@ -37,7 +58,9 @@ class App extends Component {
             return <p key={titulo}>{titulo}</p>
           })}
         </div>
+
       </div>
+
     );
   }
 }
